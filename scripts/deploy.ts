@@ -26,9 +26,6 @@ export async function deployBaseDiamond(account: any) {
   const diamondInit = await DiamondInit.deploy();
   await diamondInit.deployed();
   console.log('DiamondInit deployed:', diamondInit.address);
-
-  console.log('Deploying facets');
-
   
   console.log('')
   console.log('Deploying facets')
@@ -36,8 +33,6 @@ export async function deployBaseDiamond(account: any) {
     'DiamondLoupeFacet',
     'OwnershipFacet'
   ];
-
-  let facetAddresses = [];
 
   // The `queue` variable is the FacetCut[] that contains the functions to queue to add queue during diamond deployment
   const queue = [];
