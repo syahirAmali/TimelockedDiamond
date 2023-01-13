@@ -41,6 +41,9 @@ describe("Timelock Diamond", function () {
 
     diamond = diamondAddress;
 
+    await cutFacet.queueAndSetTimelock(true, 0);
+    await cutFacet.queueAndSetTimelock(false, SECONDS_IN_DAY);
+
     return { diamond };
   }
 
@@ -604,7 +607,7 @@ describe("Timelock Diamond", function () {
       expect(await test1Facet.test1Func1()).to.equals(11);
     });
 
-    it("14.Revert function after replace", async () => {
+    it("14. Revert function after replace", async () => {
       const Test1Facet = await ethers.getContractFactory("Test1Facet");
       const selectors = getSelectors(Test1Facet).get([
         "test1Func1()",
