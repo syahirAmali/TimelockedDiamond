@@ -358,7 +358,7 @@ library LibDiamond {
 
             uint256 timeQueued = ds.queueRevertFunction[_facetAddress].queued[selector];
             require(timeQueued > 0, Errors.FUNCTION_NOT_QUEUED);
-            require(block.timestamp > timeQueued + 1 days, Errors.FUNCTION_TIMELOCKED);
+            require(block.timestamp > timeQueued + ds.timelock, Errors.FUNCTION_TIMELOCKED);
 
             require(
                 currentFacetAddress != _facetAddress,
@@ -420,7 +420,7 @@ library LibDiamond {
             uint256 timeQueued = ds.queueReplaceFunction[_facetAddress].queued[selector];
 
             require(timeQueued > 0, Errors.FUNCTION_NOT_QUEUED);
-            require(block.timestamp > timeQueued + 1 days, Errors.FUNCTION_TIMELOCKED);
+            require(block.timestamp > timeQueued + ds.timelock, Errors.FUNCTION_TIMELOCKED);
 
             removeFunction(ds, oldFacetAddress, selector);
             addFunction(ds, selector, selectorPosition, _facetAddress);
@@ -454,7 +454,7 @@ library LibDiamond {
 
             uint256 timeQueued = ds.queueRemoveFunction[oldFacetAddress].queued[selector];
             require(timeQueued > 0, Errors.FUNCTION_NOT_QUEUED);
-            require(block.timestamp > timeQueued + 1 days, Errors.FUNCTION_TIMELOCKED);
+            require(block.timestamp > timeQueued + ds.timelock, Errors.FUNCTION_TIMELOCKED);
 
             removeFunction(ds, oldFacetAddress, selector);
         }
